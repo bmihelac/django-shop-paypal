@@ -40,7 +40,7 @@ class OffsitePaypalBackend(object):
     def get_urls(self):
         urlpatterns = patterns('',
             url(r'^$', self.view_that_asks_for_money, name='paypal' ),
-            url(r'^success$', self.paypal_successful_return_view, name='paypal_success' ),
+            url(r'^success$', self.paypal_successful_return_view, name='paypal_success'),
             url(r'^/somethinghardtoguess/instantpaymentnotification/$', include('paypal.standard.ipn.urls')),
         )
         return urlpatterns
@@ -81,8 +81,8 @@ class OffsitePaypalBackend(object):
     
     @csrf_exempt
     def paypal_successful_return_view(self, request):
-        return render_to_response("shop_paypal/success.html", {})
-    
+        return self.shop.get_finished_url()
+
     #===========================================================================
     # Signal listeners
     #===========================================================================
